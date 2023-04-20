@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+    // 이곳에 코드를 작성합니다.
+		const inputs = [
+      [3, 10, 5, [1, 3, 5, 7, 9]],    // 3
+      [3, 10, 5, [1, 3, 7, 8, 9]],    // 0
+      [5, 20, 5, [4, 7, 9, 14, 17]],  // 4
+    ]
+
+    // solution 함수 완성
+    function solution(K, N, M, chargers) {
+      // K = 최대 이동 가능 거리
+      // N = 총 정류장 수
+      // M = 충전소 개수
+      // chargers = 충전소 정보
+
+      console.log(K, N, M, chargers)
+
+      //시작 위치 = 0 + 최대 이동 가능 거리
+      let now = K
+      // 총 충전 횟수
+      let count = 0
+      // 마지막 충전 위치
+      let charge = 0
+
+      // 정류장 정보
+      // station = [0] * N + 1
+      // const station = new Array(N + 1).fill(0) // [0, 0, 0, 0, 0, 0, 0 ,0 ,0]
+      
+      // for i in chargers:
+      //    station[i] = 1
+      const station = []
+      for (let i = 0; i < N + 1; i++) {
+        if (chargers.includes(i)) {
+          station.push(true)
+        } else {
+          station.push(false)
+        }
+        // chargers.includes(i) ? station.push(true) : station.push(false)
+      }
+
+      //종점에 도착하기 전까지 반복
+      while (now < N) {
+        // 내 현재 위치에 충전소가 있다: 충전한다.
+        if (station[now]) {
+          count ++
+          charge = now
+          now += K
+        } else {
+          now -= 1
+        }
+        // 없다 : 뒤로 한칸 땡긴다.
+        // 내 현재 위치가 마지막 충전소 위치까지 돌아왔다 : 더 이상 가망이 없다. 종료한다.
+
+        if (now == charge) {
+          count = 0
+          break
+        }
+      }
+
+      console.log(`#${count}`)
+    }
+    
+    for (const input of inputs) {
+      solution(input[0], input[1], input[2], input[3])
+    }
+  </script>
+</body>
+</html>

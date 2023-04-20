@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1></h1>
+  <script>
+    // 이곳에 코드를 작성합니다.
+    const h1Tag = document.querySelector('h1')
+    const aTag = document.createElement('a')
+    aTag.innerText = 'SSAFY'
+    // aTag.innerHTML = '<a href="https://ssafy.com"> SSAFY </a>'
+    // html 요소들을 넣어줌
+    
+
+    aTag.addEventListener('click', () => {
+    aTag.setAttribute('href', 'https://google.com/')
+    event.preventDefault();
+  })
+
+  h1Tag.appendChild(aTag)
+  </script>
+</body>
+</html>
