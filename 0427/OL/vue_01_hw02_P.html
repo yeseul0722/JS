@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app">
+    <!-- 화면 구성 -->
+    <h3>첫 번째 입력 : {{ firstInput }}</h3>
+    <input v-model="firstInput" type="text">
+
+    <h3>두 번째 입력 : {{ secondInput }}</h3>
+    <input v-model="secondInput" type="text">
+
+    <h3>합산 입력 : {{ firstInput + secondInput }}</h3>
+    
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    // new 생성자로 Vue instance 생성
+    const app = new Vue({
+      // 부착할 대상 element 지정
+      el: '#app',
+      data: {
+        firstInput: '',
+        secondInput: '',
+      }
+    })
+  </script>
+</body>
+</html>

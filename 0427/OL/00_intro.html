@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+
+    <p>{{message}}</p>
+    <input v-on:keydown.enter="onEnter" type="text">
+    <ul>
+      <li v-for="student in students">
+        {{student}}
+      </li>
+      
+    </ul>
+  </div>  
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message: 'Hello World!',
+        students: ['윤자현 최상익', '김예슬 정훈석', '김구현 김구현']
+      },
+      methods: {
+        onEnter(event) {
+          console.log(event.target.value)
+          const name = event.target.value
+          this.students.push(name)
+        }
+      }
+    })
+  </script>
+</body>
+</html>
