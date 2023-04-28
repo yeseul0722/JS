@@ -61,6 +61,17 @@
 
   <script>
     // 여기에 Javascript를 작성해 주세요
+    const inputs = document.querySelectorAll('input')
+    console.log(inputs) // 0: input, 1: input 
+    inputs.forEach(function (input) {
+      input.setAttribute('class', 'myInputs')
+    })
+    
+    const myButton = document.querySelector('button')
+    myButton.classList.add('myButton')
+    myButton.innerText = 'Log In'
+   
+
   </script>
 </body>
 </html>

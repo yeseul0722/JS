@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ person.username }}님의 프로필</h1>
+  <div>
+    팔로워 : <span id="followers-count">{{ person.followers.all|length }}</span> /
+    팔로잉 : <span id="followings-count">{{ person.followings.all|length }}</span> 
+  </div>
+
+  {% if request.user != person %}
+  <div>
+    <form id="follow-form" data-user-id="{{ person.pk }}">
+      {% csrf_token %}
+      {% if request.user in person.followers.all %}
+      <button type="submit" class="btn btn-secondary">언팔로우</button>
+      <!-- <input type="submit" value="언팔로우"> -->
+      {% else %}
+      <button type="submit" class="btn btn-primary">팔로우</button>
+        <!-- <input type="submit" value="팔로우"> -->
+      {% endif %}
+    </form>
+  <div>
+  {% endif %}
+
+  <h2>{{ person.username }}이 작성한 모든 게시글</h2>
+  {% for article in person.article_set.all %}
+    <div>{{ article.title }}</div>
+  {% endfor %}
+
+  <hr>
+
+  <h2>{{ person.username }}이 작성한 모든 댓글</h2>
+  {% for comment in person.comment_set.all %}
+    <div>{{ comment.content }}</div>
+  {% endfor %}
+
+  <hr>
+
+  <h2>{{ person.username }}이 좋아요 한 모든 게시글</h2>
+  {% for article in person.like_articles.all %}
+    <div>{{ article.title }}</div>
+  {% endfor %}
+
+  <a href="{% url 'articles:index' %}">back</a>
+{% endblock content %}
+
+{% block script %}
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  const form = document.querySelector('#follow-form')
+
+  form.addEventListener('submit', function (event) {
+    event.preventDefault()
+
+    const userId = event.target.dataset.userId
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+
+    axios({
+      method: 'post',
+      url: `/accounts/${userId}/follow/`,
+      headers: {'X-CSRFToken': csrftoken},
+    })
+    .then((response) => {
+      // console.log(response.data)
+      const isFollowed = response.data.is_followed
+      const followBtn = document.querySelector('#follow-form > button')
+      const followersCountTag = document.querySelector('#followers-count')
+      const followingsCountTag = document.querySelector('#followings-count')
+      
+      followBtn.classList.toggle('btn-secondary')
+      followBtn.classList.toggle('btn-primary')
+
+      const followersCount = response.data.followers_count
+      const followingsCount = response.data.followings_count
+
+      followersCountTag.innerText = followersCount
+      followingsCountTag.innerText = followingsCount
+
+
+      if (isFollowed === true) {
+        // 팔로우 상태일때는 버튼에 언팔로우라고 떠야함..
+        followBtn.innerText = '언팔로우'
+      } else {
+        followBtn.innerText = '팔로우'
+      }
+    })
+  })
+</script>
+{% endblock script %}

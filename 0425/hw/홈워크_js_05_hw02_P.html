@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!-- <script>
+    console.log('Hi')
+
+    function asyncFunction () {
+      return new Promise(function (resolve) {
+        setTimeout(function () {
+          console.log('SSAFY')
+          resolve()
+        }, 3000)
+
+      })
+    }
+
+    asyncFunction()
+      .then(function () {
+        console.log('Bye')
+      })
+
+    
+  </script> -->
+
+  <script>
+    const sleep = (delay) => {
+      return new Promise((resolve) => {
+        setTimeout(resolve, delay)
+      })
+    }
+    console.log('Hi')
+
+    const timer = async function () {
+      await sleep(3000)
+      console.log('SSAFY')
+      
+    }
+
+    timer()
+      .then(() => console.log('BYE'))
+  </script>
+</body>
+</html>

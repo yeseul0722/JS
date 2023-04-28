@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cat & Dog</title>
+  <style>
+    img {
+      height: 500px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Cat & Dog</h1>
+  <button>Get cat or Dog</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    const CAT_API_URL = 'https://api.thecatapi.com/v1/images/search'
+    const DOG_API_URL = 'https://dog.ceo/api/breeds/image/random'
+
+    const btn = document.querySelector('button')
+    
+    let pk = 1
+    // 1. 버튼이 클릭 되면?
+    btn.addEventListener('click', function (event) {
+      // 1-2. 버튼이 클릭 됐을때? 조건 분기
+      if (pk % 2) {
+        // 반환된 Promise 객체의 메서드 .then()
+        axios({
+        method: 'get',
+        url: CAT_API_URL
+      })
+      .then(function (response) {
+        const div = document.createElement('div')
+
+        const p = document.createElement('p')
+        p.innerText = `${pk}번째 이미지`
+        const img = document.createElement('img')
+        img.src = response.data[0].url
+        div.appendChild(p, img)
+        
+        pk++
+        document.body.appendChild(div)
+      })
+
+      } else {
+        axios({
+        method: 'get',
+        url: DOG_API_URL
+      })
+      .then(function (response) {
+        const images = response.data
+        const div = document.createElement('div')
+        const p = document.createElement('p')
+        p.innerText = `${pk}번째 이미지`
+        const img = document.createElement('img')
+        img.src = img.message
+        div.appendChild(p, img)
+        pk++
+        document.body.appendChild(div)
+      })
+        
+
+      }
+    })
+  </script>
+</body>
+</html>
