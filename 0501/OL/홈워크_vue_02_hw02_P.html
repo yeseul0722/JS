@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="-1" />
+  <meta charset="utf8">
+  <title>Hello, world</title>
+  
+</head>
+<body>
+<div id="app">
+  <h1>회문 검사기</h1>
+  <!-- 사용자가 입력한 값을 vue에게 알려줄 수 있는 방법은? -->
+  <!-- 양방향 바인딩 v-model-->
+  <p>{{ message }}</p>
+  <input type="text" v-model="message">
+  <button @click="isPalindrome">확인하기</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script>
+<script type="text/javascript">
+   const app = new Vue({
+        el : '#app',
+        data : {
+          // input tag와 양방향 바인딩 되었으므로,
+          // input tag의 value와 같은 값을 가지게 된다.
+          message: ''
+        },
+        // vue 객체의 메서드들을 모아 놓는 객체
+        methods: {
+          isPalindrome() {
+            console.log('잘 되니?')
+            // 입력된 값이 없을때 실행할 코드
+            if (this.message === '') {
+              alert('입력값이 없습니다.')
+            } else {
+              // this.message.split('') => ['S', 'S', 'A', 'F', 'Y']
+              // this.message.reverse() => ['Y', 'F', 'A', 'S', 'S']
+              // this.message.join('') => 'YFASS'
+              const reversed = this.message.split('').reverse().join('')
+              //회문 이면
+              if (this.message === reversed){
+                alert('회문 입니다.')
+              } else {
+                // 아니면
+                alert('회문이 아닙니다.')
+              }
+              
+            }
+          }
+        }
+   });
+</script>
+
+</body>
